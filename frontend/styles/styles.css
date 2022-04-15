@@ -5,6 +5,7 @@
 
 html, body {
   min-height:100vh;
+  background-color: #243338;
 }
 
 body::after {
@@ -33,7 +34,7 @@ body, input, button {
 h1 {
   font-size: 1.8rem;
   line-height: 4rem;
-  color: #93005a;
+  color: #d4e6eb;
 }
 
 nav a {
@@ -98,7 +99,7 @@ nav a.active:nth-last-of-type(2) {
 }
 
 .class-based #grid .square.active, .functional #grid .square {
-  background-color: #ff4b00;
+  background-color: #ffeed7;
 }
 
 #keypad {
@@ -177,5 +178,5 @@ footer {
   margin-top: 2rem;
   line-height: 2rem;
   text-align: center;
-  color: #93005a;
+  color: #a7afb6;
 }

@@ -6,7 +6,7 @@ export default class AppClass extends React.Component {
     totalSteps: 0,
     x: 1,
     y: 1,
-    buttonPress: "",
+    activeSquare: "",
     emailInput: "",
     message: "" ,
     grid: ["", "", "", 
@@ -15,19 +15,19 @@ export default class AppClass extends React.Component {
   ,
   }
 
+  
 
-  handleMove = (id) => {
-    //tell fn which box got clicked on by id name
-    // every time that id gets clicked increase steps by one
-    //set that value into state
-    console.log("this is the id: ", id);
-    document.getElementById(id)
-    
-    this.setState({
-      ...this.state,
-        totalSteps: this.state.totalSteps + 1
-    })
+  handleMove = id => {
+    console.log(id);
+    if(id) {
+      this.setState({
+        ...this.state,
+          totalSteps: this.state.totalSteps + 1,
+          activeSquare: this.state.activeSquare ? "" : "active"
+      })
+    }
   }
+
 
   render() {
 
@@ -38,6 +38,8 @@ export default class AppClass extends React.Component {
       y,
       totalSteps,
       grid,
+      activeSquare, 
+      message
     } = this.state
 
 
@@ -50,13 +52,13 @@ export default class AppClass extends React.Component {
         <div id="grid">
           {
             grid.map( (value,idx) => {
-              return( <div key={idx} className="square">{ value  }</div>)
+              return( <div key={idx} className={ `square ${ activeSquare }` }>{ activeSquare ? "B" : value }</div>)
             })
           }
           
         </div>
         <div className="info">
-          <h3 id="message"></h3>
+          <h3 id="message">{ message }</h3>
         </div>
         <div id="keypad">
           <button onClick={ () => this.handleMove("left") } id="left">LEFT</button>
