@@ -1,20 +1,39 @@
 import React from 'react'
 
 export default class AppClass extends React.Component {
+
+  state = {
+    totalSteps: 0,
+    x: 1,
+    y: 1,
+    buttonPress: "",
+    emailInput: "",
+    message: "" ,
+    grid: ["", "", "", 
+           "", "", "",
+           "", "", "",]
+  ,
+  }
+
   render() {
+
     const { className } = this.props
+
+    const { x, y, totalSteps } = this.state
+
+
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">Coordinates (2, 2)</h3>
-          <h3 id="steps">You moved 0 times</h3>
+          <h3 id="coordinates">{`Coordinates (${ x }, ${ y })`}</h3>
+          <h3 id="steps">{`You moved ${totalSteps} times`}</h3>
         </div>
         <div id="grid">
           <div className="square"></div>
           <div className="square"></div>
           <div className="square"></div>
           <div className="square"></div>
-          <div className="square active">B</div>
+          <div className="square"></div>
           <div className="square"></div>
           <div className="square"></div>
           <div className="square"></div>
