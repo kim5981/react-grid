@@ -6,6 +6,7 @@ export default class AppClass extends React.Component {
     totalSteps: 0,
     x: 1,
     y: 1,
+    emailInput: "",
     message: "" ,
     grid: ["", "", "", 
            "", "", "",
@@ -15,10 +16,11 @@ export default class AppClass extends React.Component {
 
   handleMove = (id) => {
 
-    
+    const setToB = document.querySelector(".class.active") 
     const getActiveSquare = document.querySelector(`#${id}`)
     getActiveSquare.classList.toggle("active")
-    getActiveSquare.textContent = "B"
+    setToB.textContent = "B"
+   
 
     this.setState({
       ...this.state,
@@ -44,7 +46,18 @@ export default class AppClass extends React.Component {
       console.log(value)
       this.setState({
         ...this.state, 
-        message: value
+        emailInput: value
+      })
+    }
+
+    const onSubmit = (evt) => {
+      evt.preventDefault()
+      this.setState({
+        ...this.state,
+        message: ` winner is ${ this.state.emailInput } ` 
+      })
+      this.setState({
+        emailInput: ""
       })
     }
 
@@ -72,11 +85,12 @@ export default class AppClass extends React.Component {
           <button onClick={ () => this.handleMove("down") } id="down">DOWN</button>
           <button id="reset">reset</button>
         </div>
-        <form>
+        <form onSubmit={onSubmit}>
           <input 
             id="email" 
             type="email" 
-            placeholder="type email" 
+            placeholder="type email"
+            value={ this.emailInput }
             onChange={ onChange }
           />
           <input
