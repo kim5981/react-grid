@@ -19,7 +19,7 @@ export default class AppClass extends React.Component {
 
     const { className } = this.props
 
-    const { x, y, totalSteps } = this.state
+    const { x, y, totalSteps, grid } = this.state
 
 
     return (
@@ -29,15 +29,12 @@ export default class AppClass extends React.Component {
           <h3 id="steps">{`You moved ${totalSteps} times`}</h3>
         </div>
         <div id="grid">
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
+          {
+            grid.map( (value,idx) => {
+              return( <div key={idx} className="square">{ value  }</div>)
+            })
+          }
+          
         </div>
         <div className="info">
           <h3 id="message"></h3>
