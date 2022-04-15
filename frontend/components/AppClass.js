@@ -15,11 +15,22 @@ export default class AppClass extends React.Component {
   ,
   }
 
+  handleMove = (id) => {
+    //tell fn which box got clicked on by id name
+    console.log("this is the id: ", id);
+    document.getElementById(id)
+  }
+
   render() {
 
     const { className } = this.props
 
-    const { x, y, totalSteps, grid } = this.state
+    const {
+      x,
+      y,
+      totalSteps,
+      grid,
+    } = this.state
 
 
     return (
@@ -40,10 +51,10 @@ export default class AppClass extends React.Component {
           <h3 id="message"></h3>
         </div>
         <div id="keypad">
-          <button id="left">LEFT</button>
-          <button id="up">UP</button>
-          <button id="right">RIGHT</button>
-          <button id="down">DOWN</button>
+          <button onClick={ () => this.handleMove("left") } id="left">LEFT</button>
+          <button onClick={ () => this.handleMove("up") } id="up">UP</button>
+          <button onClick={ () => this.handleMove("right") } id="right">RIGHT</button>
+          <button onClick={ () => this.handleMove("down") } id="down">DOWN</button>
           <button id="reset">reset</button>
         </div>
         <form>
