@@ -15,10 +15,18 @@ export default class AppClass extends React.Component {
   ,
   }
 
+
   handleMove = (id) => {
     //tell fn which box got clicked on by id name
+    // every time that id gets clicked increase steps by one
+    //set that value into state
     console.log("this is the id: ", id);
     document.getElementById(id)
+    
+    this.setState({
+      ...this.state,
+        totalSteps: this.state.totalSteps + 1
+    })
   }
 
   render() {
