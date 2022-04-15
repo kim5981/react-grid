@@ -6,8 +6,6 @@ export default class AppClass extends React.Component {
     totalSteps: 0,
     x: 1,
     y: 1,
-    activeSquare: "",
-    emailInput: "",
     message: "" ,
     grid: ["", "", "", 
            "", "", "",
@@ -15,19 +13,18 @@ export default class AppClass extends React.Component {
   ,
   }
 
-  
+  handleMove = (id) => {
 
-  handleMove = id => {
-    console.log(id);
-    if(id) {
-      this.setState({
-        ...this.state,
-          totalSteps: this.state.totalSteps + 1,
-          activeSquare: this.state.activeSquare ? "" : "active"
-      })
-    }
+    
+    const getActiveSquare = document.querySelector(`#${id}`)
+    getActiveSquare.classList.toggle("active")
+    getActiveSquare.textContent = "B"
+
+    this.setState({
+      ...this.state,
+        totalSteps: this.state.totalSteps + 1,
+    })
   }
-
 
   render() {
 
@@ -42,6 +39,14 @@ export default class AppClass extends React.Component {
       message
     } = this.state
 
+    const onChange = (evt) => {
+      const { value } = evt.target
+      console.log(value)
+      this.setState({
+        ...this.state, 
+        message: value
+      })
+    }
 
     return (
       <div id="wrapper" className={className}>
@@ -52,7 +57,7 @@ export default class AppClass extends React.Component {
         <div id="grid">
           {
             grid.map( (value,idx) => {
-              return( <div key={idx} className={ `square ${ activeSquare }` }>{ activeSquare ? "B" : value }</div>)
+              return( <div key={idx} className="square"></div>)
             })
           }
           
@@ -68,8 +73,16 @@ export default class AppClass extends React.Component {
           <button id="reset">reset</button>
         </div>
         <form>
-          <input id="email" type="email" placeholder="type email"></input>
-          <input id="submit" type="submit"></input>
+          <input 
+            id="email" 
+            type="email" 
+            placeholder="type email" 
+            onChange={ onChange }
+          />
+          <input
+            id="submit" 
+            type="submit"
+          />
         </form>
       </div>
     )
