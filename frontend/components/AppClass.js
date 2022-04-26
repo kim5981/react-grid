@@ -38,7 +38,7 @@ export default class AppClass extends React.Component {
   }
 
   clickUp = () => {
-    if( this.state.y < 3 ) {
+    if( this.state.y > 0 && this.state.y < 3 ) {
       this.setState({
         ...this.state,
         totalSteps: this.state.totalSteps + 1,
