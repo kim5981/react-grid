@@ -3,28 +3,66 @@ import React from 'react'
 export default class AppClass extends React.Component {
 
   state = {
+    activeSquare: "",
     totalSteps: 0,
-    x: 1,
-    y: 1,
+    x: 2,
+    y: 2,
     emailInput: "",
     message: "" ,
-    grid: ["", "", "", 
-           "", "", "",
-           "", "", "",]
+    grid: [
+      [ 0, 0, 0 ], 
+      [ 0, 1, 0 ], 
+      [ 0, 0, 0 ] 
+    ]
   ,
   }
 
-  handleMove = (id) => {
+  clickLeft = () => {
 
-    const setToB = document.querySelector(".class.active") 
-    const getActiveSquare = document.querySelector(`#${id}`)
-    getActiveSquare.classList.toggle("active")
-    setToB.textContent = "B"
-   
-
-    this.setState({
-      ...this.state,
+    if(this.state.x > 0) {
+      this.setState({
+        ...this.state,
         totalSteps: this.state.totalSteps + 1,
+        x: this.state.x - 1
+      })
+    } else if (this.state.x <= 0) {
+      this.setState({
+        ...this.state,
+        message: "You can't go left"
+      })
+    }
+  }
+
+  clickRight = () => {
+
+  }
+
+  clickUp = () => {
+    if( this.state.y < 3 ) {
+      this.setState({
+        ...this.state,
+        totalSteps: this.state.totalSteps + 1,
+        y: this.state.y - 1 
+      })
+    } else if ( this.state.y <= 0 ) {
+      this.setState({
+        ...this.state,
+        message: "You can't go up"
+      })
+    }
+    
+  }
+
+  clickDown = () => {
+
+  }
+
+  reset = () => {
+    this.setState({
+      totalSteps: 0,
+      message: "",
+      x: 2,
+      y: 2
     })
   }
 
@@ -36,8 +74,6 @@ export default class AppClass extends React.Component {
       x,
       y,
       totalSteps,
-      grid,
-      activeSquare, 
       message
     } = this.state
 
@@ -63,27 +99,35 @@ export default class AppClass extends React.Component {
 
     return (
       <div id="wrapper" className={className}>
+
         <div className="info">
           <h3 id="coordinates">{`Coordinates (${ x }, ${ y })`}</h3>
           <h3 id="steps">{`You moved ${totalSteps} times`}</h3>
         </div>
+
         <div id="grid">
-          {
-            grid.map( (value,idx) => {
-              return( <div key={idx} className="square"></div>)
-            })
-          }
-          
+         {
+           this.state.grid.flatMap(x => x)
+           .map( (l, idx ) => {
+             return l === 1 ? (
+               <div key={ idx } value={ idx } className="square active"> B </div>
+             ) : (
+               <div key={ idx } value={ idx } className="square"></div>
+             )
+           })
+         } 
         </div>
+
         <div className="info">
           <h3 id="message">{ message }</h3>
         </div>
+
         <div id="keypad">
-          <button onClick={ () => this.handleMove("left") } id="left">LEFT</button>
-          <button onClick={ () => this.handleMove("up") } id="up">UP</button>
-          <button onClick={ () => this.handleMove("right") } id="right">RIGHT</button>
-          <button onClick={ () => this.handleMove("down") } id="down">DOWN</button>
-          <button id="reset">reset</button>
+          <button onClick={ () => this.clickLeft() } id="left">LEFT</button>
+          <button onClick={ () => this.clickUp() } id="up">UP</button>
+          <button onClick={ () => this.clickRight() } id="right">RIGHT</button>
+          <button onClick={ () => this.clickDown() } id="down">DOWN</button>
+          <button onClick={ this.reset } id="reset">reset</button>
         </div>
         <form onSubmit={onSubmit}>
           <input 
