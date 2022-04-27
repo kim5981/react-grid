@@ -53,20 +53,20 @@ export default class AppClass extends React.Component {
   }
 
   clickDown = () => {
-    if( this.state.y > 0 && this.state.y < 4) {
+    if( this.state.y === 3) {
+      this.setState({
+        ...this.state,
+        message: "You can't go down"
+      })
+    } else if ( this.state.y >= 1 || this.state.y <= 3 ) {
       this.setState({
         ...this.state,
         totalSteps: this.state.totalSteps + 1,
         y: this.state.y + 1 
       })
-    } else if ( this.state.y < 1 ) {
-      this.setState({
-        ...this.state,
-        message: "You can't go down"
-      })
     }
+    } 
 
-  }
 
   reset = () => {
     this.setState({
