@@ -18,17 +18,16 @@ export default class AppClass extends React.Component {
   }
 
   clickLeft = () => {
-
-    if(this.state.x > 0) {
+    if ( this.state.x === 1) {
+      this.setState({
+        ...this.state,
+        message: "You can't go left"
+      })
+    } else if ( this.state.x > 1 && this.state.x <= 3 ) {
       this.setState({
         ...this.state,
         totalSteps: this.state.totalSteps + 1,
         x: this.state.x - 1
-      })
-    } else if (this.state.x <= 0) {
-      this.setState({
-        ...this.state,
-        message: "You can't go left"
       })
     }
   }
@@ -38,22 +37,34 @@ export default class AppClass extends React.Component {
   }
 
   clickUp = () => {
-    if( this.state.y > 0 && this.state.y < 3 ) {
+    if ( this.state.y === 1 ) {
+      this.setState({
+        ...this.state,
+        message: "You can't go up",
+      })
+    } else if ( this.state.y <= 3 ) {
       this.setState({
         ...this.state,
         totalSteps: this.state.totalSteps + 1,
-        y: this.state.y - 1 
-      })
-    } else if ( this.state.y <= 0 ) {
-      this.setState({
-        ...this.state,
-        message: "You can't go up"
+        y: this.state.y - 1,
+        message: ""
       })
     }
-    
   }
 
   clickDown = () => {
+    if( this.state.y > 0 && this.state.y < 4) {
+      this.setState({
+        ...this.state,
+        totalSteps: this.state.totalSteps + 1,
+        y: this.state.y + 1 
+      })
+    } else if ( this.state.y < 1 ) {
+      this.setState({
+        ...this.state,
+        message: "You can't go down"
+      })
+    }
 
   }
 
@@ -79,7 +90,6 @@ export default class AppClass extends React.Component {
 
     const onChange = (evt) => {
       const { value } = evt.target
-      console.log(value)
       this.setState({
         ...this.state, 
         emailInput: value
