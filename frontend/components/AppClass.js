@@ -9,12 +9,6 @@ export default class AppClass extends React.Component {
     B: "",
     emailInput: "",
     message: "" ,
-    grid: [
-      [ 0, 0, 0 ], 
-      [ 0, 1, 0 ], 
-      [ 0, 0, 0 ] 
-    ]
-  ,
   }
 
   clickLeft = () => {
@@ -98,7 +92,6 @@ export default class AppClass extends React.Component {
       y,
       totalSteps,
       message, 
-      grid
     } = this.state
 
     const onChange = (evt) => {
@@ -120,16 +113,9 @@ export default class AppClass extends React.Component {
       })
     }
 
-    const setActive = (x, y) => {
-      if (x === this.state.x && y === this.state.y) {
-        this.setState({
-          B: "B"
-        })
-        return "active square"
-      }
+    const getId = id => {
+     document.getElementById(id)
     }
-     
-
 
     return (
       <div id="wrapper" className={className}>
@@ -141,15 +127,41 @@ export default class AppClass extends React.Component {
 
         <div id="grid">
 
-        <div className={ `${ this.state.x === 1 && this.state.y === 1 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 2 && this.state.y === 1 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 3 && this.state.y === 1 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 1 && this.state.y === 2 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 2 && this.state.y === 2 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 3 && this.state.y === 2 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 1 && this.state.y === 3 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 2 && this.state.y === 3 ? "square active" : "square" } ` }> {  } </div>
-        <div className={ `${ this.state.x === 3 && this.state.y === 3 ? "square active" : "square" } ` }> {  } </div>
+        <div className={ `${ this.state.x === 1 && this.state.y === 1 ? "square active" : "square" } ` }>
+           { this.state.x === 1 && this.state.y === 1 ? "B" : "" }
+        </div>
+
+        <div className={ `${ this.state.x === 2 && this.state.y === 1 ? "square active" : "square" } ` }>
+           { this.state.x === 2 && this.state.y === 1 ? "B" : "" }
+        </div>
+
+        <div className={ `${ this.state.x === 3 && this.state.y === 1 ? "square active" : "square" } ` }>
+           { this.state.x === 3 && this.state.y === 1 ? "B" : "" } 
+        </div>
+
+        <div className={ `${ this.state.x === 1 && this.state.y === 2 ? "square active" : "square" } ` }>
+           { this.state.x === 1 && this.state.y === 2 ? "B" : "" } 
+        </div>
+
+        <div className={ `${ this.state.x === 2 && this.state.y === 2 ? "square active" : "square" } ` }> 
+          {  this.state.x === 2 && this.state.y === 2 ? "B" : "" } 
+        </div>
+
+        <div className={ `${ this.state.x === 3 && this.state.y === 2 ? "square active" : "square" } ` }> 
+          { this.state.x === 3 && this.state.y === 2 ? "B" : "" } 
+        </div>
+
+        <div className={ `${ this.state.x === 1 && this.state.y === 3 ? "square active" : "square" } ` }>
+          { this.state.x === 1 && this.state.y === 3 ? "B" : "" }
+        </div>
+
+        <div className={ `${ this.state.x === 2 && this.state.y === 3 ? "square active" : "square" } ` }>
+          { this.state.x === 2 && this.state.y === 3 ? "B" : "" }
+        </div>
+
+        <div className={ `${ this.state.x === 3 && this.state.y === 3 ? "square active" : "square" } ` }> 
+          { this.state.x === 3 && this.state.y === 3 ? "B" : "" } 
+        </div>
          
         </div>
 
