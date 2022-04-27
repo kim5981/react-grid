@@ -106,6 +106,9 @@ export default class AppClass extends React.Component {
     .catch( err => {
       this.setState({ ...this.state, message: err.response.data.message })
     })
+    this.setState(
+      { email: "" } 
+    )
   
   }
 
@@ -127,7 +130,9 @@ export default class AppClass extends React.Component {
 
         <div className="info">
           <h3 id="coordinates">{`Coordinates (${ x }, ${ y })`}</h3>
-          <h3 id="steps">{`You moved ${steps} times`}</h3>
+          <h3 id="steps">
+            You moved { steps } {steps === 1 ? "time" : "times"}
+          </h3>
         </div>
 
         <div id="grid">

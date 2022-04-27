@@ -105,7 +105,9 @@ export default function AppFunctional(props) {
     .catch( err => {
       setState({ ...state, message: err.response.data.message })
     })
-  
+    setState({
+      email: ""
+    })
   }
 
     return (
@@ -113,7 +115,9 @@ export default function AppFunctional(props) {
 
         <div className="info">
           <h3 id="coordinates">{`Coordinates (${ state.x }, ${ state.y })`}</h3>
-          <h3 id="steps">{`You moved ${state.steps} times`}</h3>
+          <h3 id="steps">
+            You moved { state.steps } {state.steps === 1 ? "time" : "times"}
+          </h3>
         </div>
 
         <div id="grid">
