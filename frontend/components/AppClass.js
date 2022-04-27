@@ -1,13 +1,16 @@
 import React from 'react'
+import axios from "axios"
+
+const URL = `http://localhost:9000/api/result`
 
 export default class AppClass extends React.Component {
 
   state = {
-    totalSteps: 0,
+    steps: 0,
     x: 2,
     y: 2,
     B: "",
-    emailInput: "",
+    email: "",
     message: "" ,
   }
 
@@ -20,7 +23,7 @@ export default class AppClass extends React.Component {
     } else if ( this.state.x > 1 && this.state.x <= 3 ) {
       this.setState({
         ...this.state,
-        totalSteps: this.state.totalSteps + 1,
+        steps: this.state.steps + 1,
         x: this.state.x - 1
       })
     }
@@ -35,7 +38,7 @@ export default class AppClass extends React.Component {
     } else if ( this.state.x >= 1 || this.state.x <= 3 ) {
       this.setState({
         ...this.state,
-        totalSteps: this.state.totalSteps + 1,
+        steps: this.state.steps + 1,
         x: this.state.x + 1,
         message: ""
       })
@@ -51,7 +54,7 @@ export default class AppClass extends React.Component {
     } else if ( this.state.y <= 3 ) {
       this.setState({
         ...this.state,
-        totalSteps: this.state.totalSteps + 1,
+        steps: this.state.steps + 1,
         y: this.state.y - 1,
         message: ""
       })
@@ -67,7 +70,7 @@ export default class AppClass extends React.Component {
     } else if ( this.state.y >= 1 || this.state.y <= 3 ) {
       this.setState({
         ...this.state,
-        totalSteps: this.state.totalSteps + 1,
+        steps: this.state.steps + 1,
         y: this.state.y + 1 
       })
     }
@@ -76,11 +79,34 @@ export default class AppClass extends React.Component {
 
   reset = () => {
     this.setState({
-      totalSteps: 0,
+      steps: 0,
       message: "",
       x: 2,
-      y: 2
+      y: 2,
+      email: ""
     })
+  }
+
+  onChange = evt => {
+    const { value } = evt.target
+    console.log(value)
+    this.setState({
+      ...this.state, 
+      email: value
+    })
+  }
+
+  onSubmit = evt => {
+    evt.preventDefault()
+    axios.post( URL, { ...this.state, email: this.state.email })
+    .then( res => {
+      this.setState({ ...this.state, message: res.data.message })
+      this.setState({ ...this.state, email: "" })
+    })
+    .catch( err => {
+      this.setState({ ...this.state, message: err.response.data.message })
+    })
+  
   }
 
   render() {
@@ -90,39 +116,18 @@ export default class AppClass extends React.Component {
     const {
       x,
       y,
-      totalSteps,
+      steps,
       message, 
+      email
     } = this.state
 
-    const onChange = (evt) => {
-      const { value } = evt.target
-      this.setState({
-        ...this.state, 
-        emailInput: value
-      })
-    }
-
-    const onSubmit = (evt) => {
-      evt.preventDefault()
-      this.setState({
-        ...this.state,
-        message: ` winner is ${ this.state.emailInput } ` 
-      })
-      this.setState({
-        emailInput: ""
-      })
-    }
-
-    const getId = id => {
-     document.getElementById(id)
-    }
-
+   
     return (
       <div id="wrapper" className={className}>
 
         <div className="info">
           <h3 id="coordinates">{`Coordinates (${ x }, ${ y })`}</h3>
-          <h3 id="steps">{`You moved ${totalSteps} times`}</h3>
+          <h3 id="steps">{`You moved ${steps} times`}</h3>
         </div>
 
         <div id="grid">
@@ -176,13 +181,14 @@ export default class AppClass extends React.Component {
           <button onClick={ () => this.clickDown() } id="down">DOWN</button>
           <button onClick={ this.reset } id="reset">reset</button>
         </div>
-        <form onSubmit={onSubmit}>
+
+        <form onSubmit={ this.onSubmit }>
           <input 
             id="email" 
             type="email" 
             placeholder="type email"
-            value={ this.emailInput }
-            onChange={ onChange }
+            value={ email }
+            onChange={ this.onChange }
           />
           <input
             id="submit" 
@@ -193,3 +199,5 @@ export default class AppClass extends React.Component {
     )
   }
 }
+
+//` winner is ${ emailInput.substring(0, emailInput.lastIndexOf("@")) } `
