@@ -33,7 +33,19 @@ export default class AppClass extends React.Component {
   }
 
   clickRight = () => {
-
+    if ( this.state.x === 3 ) {
+      this.setState({
+        ...this.state,
+        message: "You can't go right",
+      })
+    } else if ( this.state.x >= 1 || this.state.x <= 3 ) {
+      this.setState({
+        ...this.state,
+        totalSteps: this.state.totalSteps + 1,
+        x: this.state.x + 1,
+        message: ""
+      })
+    }
   }
 
   clickUp = () => {
