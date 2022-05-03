@@ -96,17 +96,21 @@ export default function AppFunctional(props) {
   }
 
   const onSubmit = evt => {
+   
     evt.preventDefault()
-    axios.post( URL, { ...state, email: state.email })
+    axios.post( URL,  {...state})
     .then( res => {
-      setState({ ...state, message: res.data.message })
-      setState({ ...state, email: "" })
+      setState({ 
+        ...state, 
+        message: res.data.message, 
+        email: ""
+      })
     })
     .catch( err => {
-      setState({ ...state, message: err.response.data.message })
-    })
-    setState({
-      email: ""
+      setState({ 
+        ...state, 
+        message: err.response.data.message
+       })
     })
   }
 
